@@ -16,7 +16,7 @@ async def websocket_listen_forever(
     handle_message: HandleMessage,
     handle_set_websocket: HandleSetWebsocket = None,
 ) -> None:
-    reply_timeout = 60
+    reply_timeout = 25  # OPENREC用設定
     ping_timeout = 15
     sleep_time = 5
     while True:
