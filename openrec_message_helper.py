@@ -1,7 +1,5 @@
 import datetime
 
-from one_comme_users import OneCommeUsers
-
 
 def create_message_json() -> dict[str, any]:
     localtime = datetime.datetime.now()
@@ -13,9 +11,8 @@ def create_message_json() -> dict[str, any]:
         "nickname": None,
         "content": None,
         "isFirst": False,
-        "isFirstOnStream": None,  # すぐ下で設定する
+        "isFirstOnStream": None,
         "noisy": False,
         "additionalRequests": None,
     }
-    OneCommeUsers.update_message_json(json_data)
     return json_data

@@ -5,6 +5,7 @@ import aiohttp
 
 import global_value as g
 from fuyuka_helper import Fuyuka
+from one_comme_users import OneCommeUsers
 from openrec_message_helper import create_message_json
 from random_helper import is_hit_by_message_json
 
@@ -36,6 +37,7 @@ class OpenrecBot:
         else:
             json_data["content"] = ""
 
+        OneCommeUsers.update_message_json(json_data)
         answerLevel = g.config["fuyukaApi"]["answerLevel"]
         needs_response = is_hit_by_message_json(answerLevel, json_data)
         await Fuyuka.send_message_by_json_with_buf(json_data, needs_response)
