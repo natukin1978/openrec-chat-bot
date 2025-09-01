@@ -6,7 +6,7 @@ import aiohttp
 import global_value as g
 from fuyuka_helper import Fuyuka
 from one_comme_users import OneCommeUsers
-from openrec_message_helper import create_message_json
+from openrec_message_helper import create_message_json_from_ws
 from random_helper import is_hit_by_message_json
 
 logger = logging.getLogger(__name__)
@@ -30,17 +30,11 @@ class OpenrecBot:
             # 無視するID
             return
 
-        json_data = create_message_json()
-        json_data["id"] = id
-        json_data["displayName"] = json_ws["user_name"]
-        if "message" in json_ws:
-            json_data["content"] = json_ws["message"]
-        else:
-            json_data["content"] = ""
-
-        OneCommeUsers.update_message_json(json_data)
-        answerLevel = g.config["fuyukaApi"]["answerLevel"]
-        needs_response = is_hit_by_message_json(answerLevel, json_data)
+        json_data = create_message_json_from_ws(json_ws)
+        answer_level = g.config["fuyukaApi"]["answerLevel"]
+        answer_length = g.config["fuyukaApi"]["answerLength"]["default"]
+        needs_response = is_hit_by_message_json(answer_level, json_data)
+        OneCommeUsers.update_additional_requests(json_data, answer_length)
         await Fuyuka.send_message_by_json_with_buf(json_data, needs_response)
 
     async def get_movie(self):
