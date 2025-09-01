@@ -24,7 +24,7 @@ g.ADDITIONAL_REQUESTS_PROMPT = read_text("prompts/additional_requests_prompt.txt
 g.config = read_config()
 
 # ロガーの設定
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename=f"{g.app_name}.log", encoding="utf-8", level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
