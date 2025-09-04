@@ -21,12 +21,12 @@ class OneCommeUsers:
         return read_csv_to_list(pathUsersCsv)
 
     @staticmethod
-    def get_nickname(displayName: str) -> str:
+    def get_nickname(id: str) -> str:
         one_comme_users = OneCommeUsers.read_one_comme_users()
         if not one_comme_users:
             return None
 
-        filtered_rows = list(filter(lambda row: row[1] == displayName, one_comme_users))
+        filtered_rows = list(filter(lambda row: row[0] == f"or-{id}", one_comme_users))
         for filtered_row in filtered_rows:
             nickname = filtered_row[4]
             if nickname:
@@ -36,7 +36,7 @@ class OneCommeUsers:
 
     @staticmethod
     def update_nickname(json_data: dict[str, any]) -> None:
-        nickname = OneCommeUsers.get_nickname(json_data["displayName"])
+        nickname = OneCommeUsers.get_nickname(json_data["id"])
         if not nickname:
             nickname = get_first_non_none_value(json_data, ["displayName", "id"])
 

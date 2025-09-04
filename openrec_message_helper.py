@@ -24,7 +24,7 @@ def create_message_json(
 
 
 def create_message_json_from_ws(json_ws: dict[str, any]) -> dict[str, any]:
-    id = str(json_ws["user_id"])
+    id = json_ws["user_key"]
     display_name = json_ws["user_name"]
     is_first = False
     content = ""
