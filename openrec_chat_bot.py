@@ -5,11 +5,17 @@ import os
 import sys
 
 import global_value as g
+from config_helper import read_config
+from logging_setup import setup_app_logging
 
 g.app_name = "openrec_chat_bot"
 g.base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+g.config = read_config()
 
-from config_helper import read_config
+# ロガーの設定
+setup_app_logging(g.config["logLevel"], log_file_path=f"{g.app_name}.log")
+logger = logging.getLogger(__name__)
+
 from one_comme_users import OneCommeUsers
 from openrec_bot import OpenrecBot
 from openrec_helper import OpenrecHelper
@@ -20,13 +26,6 @@ print("前回の続きですか？(y/n) ", end="")
 is_continue = input() == "y"
 
 g.ADDITIONAL_REQUESTS_PROMPT = read_text("prompts/additional_requests_prompt.txt")
-
-g.config = read_config()
-
-# ロガーの設定
-logging.basicConfig(filename=f"{g.app_name}.log", encoding="utf-8", level=logging.INFO)
-
-logger = logging.getLogger(__name__)
 
 g.map_is_first_on_stream = {}
 g.set_exclude_id = read_text_set("exclude_id.txt")

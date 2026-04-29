@@ -1,4 +1,5 @@
 {
+  "logLevel": "INFO",
   "openrec": {
     "channelId": "",
     "chatPollingIntervalSec": 15
