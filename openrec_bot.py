@@ -21,7 +21,7 @@ class OpenrecBot:
         self.movie_id = None
 
     async def on_message_from_ws(self, json_ws):
-        logger.info(json_ws)
+        logger.info(json_ws, extra={'force': True})
         if "user_name" not in json_ws:
             return
 
