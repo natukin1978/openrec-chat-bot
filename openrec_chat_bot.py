@@ -80,7 +80,7 @@ async def main():
     while True:
         if bot.movie_id:
             break
-        await asyncio.sleep(self.chat_polling_interval)
+        await asyncio.sleep(g.config["openrec"]["chatPollingIntervalSec"])
 
     websocket_uri = f"wss://chat.openrec.tv/socket.io/?EIO=3&transport=websocket&movieId={bot.movie_id}"
     asyncio.create_task(
